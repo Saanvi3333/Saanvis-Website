@@ -1,0 +1,685 @@
+/* Basic page setup */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* prevent horizontal scroll */
+  font-size: clamp(14px, 2vw, 20px); /* Global responsive text */
+  background-color:pink;
+  scroll-behavior: smooth;
+}
+.container {
+  max-width: 100%;
+  width: 90%;
+  margin: auto;
+  padding: 40px 0;
+}
+
+.photo-gallery {
+  display: flex;
+  gap: 20px;
+  flex-wrap:wrap;
+  max-width:100%;
+}
+
+.column {
+  flex: 1 1 30%; /* make columns expand evenly */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+}
+
+.photo img {
+  width: 100%; /* take full column width */
+  height: auto;/* auto height to maintain aspect ratio */
+  border-radius: 5px;
+  object-fit: cover;
+  max-width: 100%; /* ensures no overflow */
+  transition:transform 0.3s ease-in-out;
+}
+.photo img:hover{
+  transform:scale(1.15);
+  cursor: pointer;
+}
+/* Shining effect */
+.photo::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: rotate(25deg);
+  transition: all 0.7s ease-in-out;
+}
+
+.photo:hover::after {
+  left: 125%; /* move across the image */
+  pointer-events: none; /* shine won’t block hover */
+}
+/* Title Home */
+header .title-sana {
+  font-family: "Gluten", cursive;
+  color: rgb(248, 246, 246);
+  font-size: clamp(100px, 8vw, 400px); /* Responsive */
+  transition: all 0.7s ease-in-out;
+  margin-left: 30px;
+  margin-top: 0px;
+  padding-top:60px;
+ 
+}
+/*Title Projects*/
+header .title {
+  font-family: "Gluten", cursive;
+  color: rgb(179, 116, 126);
+  font-size: clamp(100px, 8vw, 400px); /* Responsive */
+  transition: all 0.7s ease-in-out;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+.photo {
+  position: relative; /* needed for the pseudo-element */
+  overflow: hidden;   /* prevent shine from spilling outside */
+}
+/* Hamburger icon */
+#menu-toggle {
+  position: fixed;
+  top: 0px;
+  right: 20px;
+  font-size: clamp(40px, 6vw, 70px);
+  cursor: pointer;
+  user-select: none;
+  z-index: 1000;
+  color:black;
+  transition: transform 0.3s ease;
+}
+
+header {
+  position: relative;
+}
+
+
+
+/* Nav menu */
+#nav-bar {
+  pointer-events: none; /* ignore clicks when hidden */
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 50%;
+  height:100vh;
+  padding: 10px;
+  background-color: rgb(12, 12, 12);
+  display: block;
+  opacity: 0;
+  transition: right 0.3s ease, opacity 0.3s ease;
+  z-index: 999;
+  border: 2px solid rgb(222, 151, 163);
+}
+
+#nav-bar.show {
+  right: 0;
+  opacity: 1; 
+   pointer-events: auto; /* only active when shown */    
+}
+
+#nav-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: clamp(18px, 3vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#nav-bar li {
+  margin-bottom: 80px;
+  margin-top:20px;
+  text-align:center;
+  font-family: "Gluten", cursive;
+}
+#nav-bar a::after {
+  content: "";   /* empty pseudo-element */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0; /* start hidden */
+  height: 2px; /* underline thickness */
+  background-color: azure;  /* underline color */
+  transition: width 0.3s ease; /* smooth animation */
+}
+
+#nav-bar a:hover::after {
+  width: 100%;  /* expand underline on hover */
+}
+
+#nav-bar a {
+  position: relative; 
+  text-decoration: none;
+  color: rgb(255, 255, 255); 
+  padding-bottom: 3px; 
+  
+  
+}
+
+#menu-toggle.open {
+  transform: rotate(180deg);
+}
+
+/* About Section Layout */
+#blurb {
+  background-color: rgb(152, 125, 125);
+  display: flex; /* Put image and text side by side */
+  flex-wrap: wrap; /* Wrap on smaller screens */
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  border-style:solid;
+  border-radius: 20px;
+  margin:10px;
+}
+
+#about-image {
+  width: clamp(120px, 25vw, 250px); /* Responsive image size */
+  height: auto;
+  border-radius: 10px;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+#about {
+  margin-left: 0; /* Let flexbox handle spacing */
+  display: inline-block;
+  flex: 1;
+  min-width: 250px;
+}
+
+#about h2 {
+  font-family: "Gluten", cursive;
+  font-size: clamp(28px, 5vw, 50px);
+  color: rgb(255, 255, 255);
+}
+
+/* Paragraph text */
+#blurb p {
+  font-family: "Gluten", cursive;
+  font-size: clamp(14px, 2vw, 20px);
+  padding-top: 10px;
+  padding-bottom: 20px;
+  color: white;
+  text-align: left;
+  line-height:1.5;
+}
+
+/* Buttons under blurb */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.button-container button {
+  font-size: clamp(16px, 3vw, 40px);
+  padding: clamp(6px, 1vw, 10px) clamp(12px, 2vw, 20px);
+  border: none;
+  background-color: #444;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease, transform 0.5s ease;
+  margin-bottom: 50px;
+  font-family: "Gluten", cursive;
+}
+
+.button-container button:hover {
+  background-color: #666;
+  transform: scale(1.05);
+}
+
+/* Section headings */
+#Skills h3 {
+  font-family: "Gluten", cursive;
+  font-size: clamp(28px, 5vw, 50px);
+  color: rgb(255, 255, 255);
+}
+
+/* Skills buttons */
+#Skills button {
+  font-family: "Gluten", cursive;
+  font-size: clamp(14px, 2vw, 20px);
+  padding: 8px;
+  margin: 3px;
+  border-radius: 20px;
+  border-color: rgb(173, 90, 104);
+  color: rgb(173, 90, 104);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#Skills button:hover {
+  background-color: rgb(66, 48, 52);
+  color: rgb(243, 236, 237);
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
+}
+
+/* Skills container */
+#Skills {
+  background-color: rgb(152, 125, 125);
+  display: inline-block;
+  padding: 20px;
+  justify-content: center;
+  border-style:solid;
+  border-radius:20px;
+  margin:10px;
+  
+}
+
+/* Mobile layout adjustment */
+@media (max-width: 768px) {
+  #blurb {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+  
+  .images img {
+    width: 50%;
+    height: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .images img {
+      width: 80%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .images img {
+      width: 100%;
+    }
+  }
+
+/* for the bottom of my website */
+.footer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background-color:black;
+}
+.footer a:hover{
+  color:yellow;
+}
+.footer a{
+  margin:35px;
+  color:white;
+  text-decoration:none;
+  font-size: clamp(14px, 2vw, 20px);
+  font-family: "Gluten", cursive;
+}
+/* Project titles */
+.projects .ecosystem h2{
+  color:rgb(227, 207, 211);
+  font-size: clamp(35px, 2vw, 20px);
+  margin:25px;
+  padding:20px;
+  font-family: "Gluten", cursive;
+}
+.projects .ecosystem video {
+  display: block; 
+  margin: 20px auto;  
+  width:50%;
+  height:25%;     
+}
+.projects .ecosystem p{
+  margin:25px;
+  font-size: clamp(15px, 2vw, 20px);
+  color:white;
+  padding:20px;
+  line-height:1.5;
+  font-family: "Gluten", cursive;
+}
+.projects .worlds-hardest-game video{
+  display: block; 
+  margin: 20px auto;  
+  width:50%;
+  height:25%;
+}
+
+.projects .worlds-hardest-game p{
+  margin:25px;
+  font-size: clamp(15px, 2vw, 20px);
+  color:white;
+  padding:20px;
+  font-family: "Gluten",cursive;
+  line-height:1.5;
+}
+.projects .worlds-hardest-game h2{
+  color:rgb(227, 207, 211);
+  font-size: clamp(35px, 2vw, 20px);
+  margin:25px;
+  padding:20px;
+  font-family: "Gluten", cursive;
+}
+.projects .worlds-hardest-game{
+  background-color: rgb(152, 125, 125);
+  margin:20px;
+  border-style:solid;
+  border-radius:20px;
+}
+.projects .ecosystem{
+  background-color: rgb(152, 125, 125);
+  margin:20px;
+  border-style:solid;
+  border-radius:20px;
+}
+.projects .Maze{
+  background-color: rgb(152, 125, 125);
+  margin:20px;
+  border-style:solid;
+  border-radius:20px;
+}
+.projects .Masterminds{
+  background-color: rgb(152, 125, 125);
+  margin:20px;
+  border-style:solid;
+  border-radius:20px;
+}
+.projects .Maze video{
+  display: block; 
+  margin: 20px auto;  
+  width:50%;
+  height:25%;
+}
+.projects .Maze h2{
+  color:rgb(227, 207, 211);
+  font-size: clamp(35px, 2vw, 20px);
+  margin:25px;
+  padding:20px;
+  font-family: "Gluten", cursive;
+}
+.projects .Maze p{
+  margin:25px;
+  font-size: clamp(15px, 2vw, 20px);
+  color:white;
+  padding:20px;
+  font-family: "Gluten", cursive;
+  line-height:1.5;
+}
+.projects .Masterminds video{
+  display: block; 
+  margin: 20px auto;  
+  width:50%;
+  height:25%;
+}
+.projects .Masterminds h2{
+  color:rgb(255, 255, 255);
+  font-size: clamp(35px, 2vw, 20px);
+  margin:25px;
+  padding:20px;
+  font-family: "Gluten", cursive;
+}
+.projects .Masterminds p{
+  margin:25px;
+  font-size: clamp(15px, 2vw, 20px);
+  color:white;
+  padding:20px;
+  font-family: "Gluten", cursive;
+  line-height:1.5;
+}
+.projects > div {
+  overflow: hidden;
+}
+/*Background*/
+.background{
+  background:linear-gradient(to top, palevioletred,plum);
+  width:100%;
+  height:100vh;
+}
+.squares{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+.down-squares li{
+  position:absolute;
+  display:block;
+  list-style:none;
+  width:40px;
+  height:40px;
+  background-color:palevioletred;
+  top:-100px;
+  animation:float-down 10s infinite linear;
+}
+.down-squares li:nth-child(1){
+  width:80px;
+  height:80px;
+  left:10%;
+  animation-delay: 2s;
+}
+.down-squares li:nth-child(2){
+  width:60px;
+  height:60px;
+  left:20%;
+   animation-delay:0.5s;
+}
+.down-squares li:nth-child(3){
+  width:55px;
+  height:55px;
+  left:30%;
+   animation-delay:2.5s;
+}
+.down-squares li:nth-child(4){
+  width:20px;
+  height:20px;
+  left:30%;
+   animation-delay:1.25s;
+}
+.down-squares li:nth-child(5){
+  width:70px;
+  height:70px;
+  left:44%;
+   animation-delay:2s;
+}
+.down-squares li:nth-child(6){
+  width:25px;
+  height:25px;
+  left:54%;
+   animation-delay:1s;
+}
+.down-squares li:nth-child(7){
+  width:45px;
+  height:45px;
+  left:60%;
+   animation-delay:2.5s;
+}
+.down-squares li:nth-child(8){
+  width:85px;
+  height:85px;
+  left:70%;
+   animation-delay:1s;
+}
+.down-squares li:nth-child(9){
+  width:25px;
+  height:25px;
+  left:66%;
+   animation-delay:1.75s;
+}
+.down-squares li:nth-child(10){
+  width:15px;
+  height:15px;
+  left:78%;
+   animation-delay:2s;
+}
+.down-squares li:nth-child(11){
+  width:60px;
+  height:60px;
+  left:85%;
+   animation-delay:2.5s;
+}
+.down-squares li:nth-child(12){
+  width:15px;
+  height:15px;
+  left:90%;
+   animation-delay:1s;
+}
+.down-squares li:nth-child(13){
+  width:40px;
+  height:40px;
+  left:0%;
+   animation-delay:2s;
+}
+@keyframes float-down{
+   0% {
+    transform: translateY(-150px) rotate(720deg); /* start above screen, rotated */
+    opacity: 0; 
+    border-radius: 0;
+  }
+  10% {
+    opacity: 1; /* fade in as it enters */
+  }
+  100% {
+    transform: translateY(100vh) rotate(0deg); /* fall past bottom, unrotated */
+    opacity: 0; 
+    border-radius: 80%;
+  }
+}
+.down-squares{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+.squares li{
+  position:absolute;
+  display:block;
+  list-style:none;
+  width:40px;
+  height:40px;
+  background-color:rgba(221,160,221,0.5);
+  bottom:-90px;
+  animation:float 10s infinite linear;
+}
+.squares li:nth-child(1){
+  width:80px;
+  height:80px;
+  left:30%;
+  animation-delay: 2s;
+  
+}
+.squares li:nth-child(1){
+  width:80px;
+  height:80px;
+  left:30%;
+  animation-delay: 2s;
+  
+}
+.squares li:nth-child(2){
+  width:20px;
+  height:20px;
+  left:45%;
+}
+.squares li:nth-child(3){
+  width:90px;
+  height:90px;
+  left:10%;
+  animation-delay: 3s;
+  
+}
+.squares li:nth-child(4){
+  width:45px;
+  height:45px;
+  left:40%;
+  animation-delay: 1s
+}
+.squares li:nth-child(5){
+  width:60px;
+  height:60px;
+  left:65%;
+  animation-delay: 0.25s;
+  
+}
+.squares li:nth-child(6){
+  width:30px;
+  height:30px;
+  left:25%;
+  animation-delay: 0.1s;
+  
+}
+.squares li:nth-child(7){
+  width:35px;
+  height:35px;
+  left:50%;
+  animation-delay: 1.5s;
+  
+}
+.squares li:nth-child(8){
+  width:55px;
+  height:55px;
+  left:60%;
+  animation-delay: 2s;
+  
+}
+.squares li:nth-child(9){
+  width:25px;
+  height:25px;
+  left:76%;
+  animation-delay: 2s;
+  
+}
+.squares li:nth-child(10){
+  width:40px;
+  height:40px;
+  left:75%;
+  animation-delay: 1s;
+  
+}
+.squares li:nth-child(11){
+  width:30px;
+  height:30px;
+  left:15%;
+  animation-delay: 1.5s;
+  
+}
+.squares li:nth-child(12){
+  width:60px;
+  height:60px;
+  left:65%;
+  animation-delay: 3s;
+  
+}
+.squares li:nth-child(13){
+  width:60px;
+  height:60px;
+  left:85%;
+  animation-delay: 3s;
+  
+}
+
+
+@keyframes float{
+  from{
+    transform: translateY(0) rotate(0deg);
+    opacity:1;
+    border-radius:0;
+  }to{
+    transform: translateY(-1000px) rotate(720deg);
+    opacity:0;
+    border-radius:80%;
+  }
+}
